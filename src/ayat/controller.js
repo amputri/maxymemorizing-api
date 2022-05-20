@@ -22,7 +22,7 @@ const insertAyat = (req, res) => {
     pool.query(queries.insertData, [id, gambar, id_session])
         .then(result => {
             return res.status(200).json({
-                message: 'berhasil menambahkan data'
+                message: 'berhasil menambahkan datta'
             })
         })
         .catch(e => {
