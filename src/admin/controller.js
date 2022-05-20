@@ -1,10 +1,11 @@
 const pool = require('../../config/db')
+const base = require('../../config/base')
 const queries = require('./queries')
 
 const bcrypt = require('bcryptjs')
 
 const getAdmin = (req, res) => {
-    pool.query(queries.getData)
+    pool.query(queries.getData, [req.params.id])
         .then(result => {
             return res.status(200).json(result.rows)
         })
@@ -17,9 +18,9 @@ const getAdmin = (req, res) => {
 }
 
 const insertAdmin = (req, res) => {
-    const { nama, username, password, level, id } = req.body
+    const { nama, username, level, id } = req.body
 
-    pool.query(queries.insertData, [nama, username, bcrypt.hashSync(password, 8), level, id])
+    pool.query(queries.insertData, [nama, username, bcrypt.hashSync(base.defaultAdminPassword, 8), level, id])
         .then(result => {
             return res.status(200).json({
                 message: 'berhasil menambahkan data'
@@ -99,11 +100,29 @@ const updateStatus = (req, res) => {
         })
 }
 
+const resetPassword = (req, res) => {
+    const { id, id_session } = req.body
+
+    pool.query(queries.resetPassword, [bcrypt.hashSync(base.defaultAdminPassword, 8), id, id_session])
+        .then(result => {
+            return res.status(200).json({
+                message: 'berhasil reset password admin'
+            })
+        })
+        .catch(e => {
+            console.error(e.stack)
+            return res.status(500).json({
+                message: 'gagal reset password admin'
+            })
+        })
+}
+
 module.exports = {
     getAdmin,
     insertAdmin,
     updateAdmin,
     deleteAdmin,
     updateLevel,
-    updateStatus
+    updateStatus,
+    resetPassword
 }

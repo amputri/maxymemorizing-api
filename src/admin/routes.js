@@ -7,12 +7,13 @@ const authMiddleware = require('../auth/middleware')
 
 router.use('/', authMiddleware.verifyToken)
 
-router.get('/', authMiddleware.isAdmin, controller.getAdmin)
+router.get('/:id', authMiddleware.isAdmin, controller.getAdmin)
 router.post('/', [authMiddleware.isAdmin, middleware.cekUsername], controller.insertAdmin)
 router.put('/', [middleware.cekPassword, middleware.cekUsername], controller.updateAdmin)
 router.delete('/:id', authMiddleware.isAdmin, controller.deleteAdmin)
 
 router.put('/level', authMiddleware.isAdmin, controller.updateLevel)
 router.put('/status', authMiddleware.isAdmin, controller.updateStatus)
+router.put('/reset-password', authMiddleware.isAdmin, controller.resetPassword)
 
 module.exports = router
