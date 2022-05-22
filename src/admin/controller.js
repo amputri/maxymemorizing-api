@@ -17,19 +17,6 @@ const getAdmin = (req, res) => {
         })
 }
 
-const getCurrentUser = (req, res) => {
-    pool.query(queries.getCurrentUser, [req.params.id])
-        .then(result => {
-            return res.status(200).json(result.rows[0])
-        })
-        .catch(e => {
-            console.error(e.stack)
-            return res.status(500).json({
-                message: 'gagal mendapat data'
-            })
-        })
-}
-
 const insertAdmin = (req, res) => {
     const { nama, username, level, id } = req.body
 
@@ -132,7 +119,6 @@ const resetPassword = (req, res) => {
 
 module.exports = {
     getAdmin,
-    getCurrentUser,
     insertAdmin,
     updateAdmin,
     deleteAdmin,

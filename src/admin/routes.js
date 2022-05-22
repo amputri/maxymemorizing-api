@@ -8,7 +8,6 @@ const authMiddleware = require('../auth/middleware')
 router.use('/', authMiddleware.verifyToken)
 
 router.get('/:id', authMiddleware.isAdmin, controller.getAdmin)
-router.get('/user/:id', controller.getCurrentUser)
 router.post('/', [authMiddleware.isAdmin, middleware.cekUsername], controller.insertAdmin)
 router.put('/', [middleware.cekPassword, middleware.cekUsername], controller.updateAdmin)
 router.delete('/:id', authMiddleware.isAdmin, controller.deleteAdmin)

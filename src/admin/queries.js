@@ -1,5 +1,4 @@
 const getData = "SELECT * FROM admin WHERE id!=$1"
-const getCurrentUser = "SELECT * FROM admin WHERE id=$1"
 const insertData = "INSERT INTO admin (nama, username, password, level, created_by, updated_by) VALUES ($1, $2, $3, $4, $5, $5)"
 const updateData = "UPDATE admin SET nama=$1, username=$2, password=$3, updated_at=now(), updated_by=$4 WHERE id=$4"
 const deleteData = "DELETE FROM admin WHERE id=$1"
@@ -14,7 +13,6 @@ const cekPassword = "SELECT * FROM admin WHERE username=$1"
 
 module.exports = {
     getData,
-    getCurrentUser,
     insertData,
     updateData,
     deleteData,

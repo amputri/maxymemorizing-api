@@ -24,10 +24,10 @@ const cekUsername = (req, res, next) => {
 }
 
 const cekPassword = (req, res, next) => {
-    const { username, password } = req.body
-    pool.query(queries.cekPassword, [username])
+    const { username_lama, password_lama } = req.body
+    pool.query(queries.cekPassword, [username_lama])
         .then(result => {
-            if (!(bcrypt.compareSync(password, result.rows[0].password))) {
+            if (!(bcrypt.compareSync(password_lama, result.rows[0].password))) {
                 return res.status(401).json({
                     message: 'password salah'
                 })
