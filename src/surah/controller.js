@@ -1,6 +1,7 @@
 const pool = require('../../config/db')
 const base = require('../../config/base')
 const queries = require('./queries')
+var fs = require('fs')
 
 const getSurah = (req, res) => {
     pool.query(queries.getData, [req.params.id])
@@ -38,6 +39,7 @@ const updateSurah = (req, res) => {
     var { kata_kunci, gambar_surah, narasi, uraian, id_session } = req.body
 
     if (req.file) {
+        fs.unlinkSync(`uploads/surah/${gambar_surah.split('/surah/').pop()}`)
         gambar_surah = `${base.url}/surah/${req.file.filename}`
     }
 
@@ -56,7 +58,11 @@ const updateSurah = (req, res) => {
 }
 
 const deleteSurah = (req, res) => {
-    pool.query(queries.deleteData, [req.params.id])
+    const { gambar_lama, id } = req.params
+
+    fs.unlinkSync(`uploads/surah/${gambar_lama}`)
+
+    pool.query(queries.deleteData, [id])
         .then(result => {
             return res.status(200).json({
                 message: 'berhasil menghapus data'
