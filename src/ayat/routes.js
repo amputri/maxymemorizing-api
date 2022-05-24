@@ -17,6 +17,7 @@ var upload = multer({ storage: storage })
 
 const authMiddleware = require('../auth/middleware')
 
+router.get('/', authMiddleware.verifyToken, controller.getAllAyat)
 router.get('/:id', controller.getAyat)
 router.post('/', [authMiddleware.verifyToken, upload.single('gambar')], controller.insertAyat)
 router.post('/:id', [authMiddleware.verifyToken, upload.single('gambar')], controller.updateAyat)
