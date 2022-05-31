@@ -4,22 +4,8 @@ const queries = require('./queries')
 
 const bcrypt = require('bcryptjs')
 
-const countAdmin = (req, res) => {
-    pool.query(queries.countData, [req.params.id])
-        .then(result => {
-            return res.status(200).json(result.rows[0].count)
-        })
-        .catch(e => {
-            console.error(e.stack)
-            return res.status(500).json({
-                message: 'gagal mendapat data'
-            })
-        })
-}
-
 const getAdmin = (req, res) => {
-    const { id, mulai } = req.params
-    pool.query(queries.getData, [id, mulai])
+    pool.query(queries.getData, [req.params.id])
         .then(result => {
             return res.status(200).json(result.rows)
         })
@@ -32,9 +18,9 @@ const getAdmin = (req, res) => {
 }
 
 const insertAdmin = (req, res) => {
-    const { nama, username, level, id } = req.body
+    const { nama, username, level, id_session } = req.body
 
-    pool.query(queries.insertData, [nama, username, bcrypt.hashSync(base.defaultAdminPassword, 8), level, id])
+    pool.query(queries.insertData, [nama, username, bcrypt.hashSync(base.defaultAdminPassword, 8), level, id_session])
         .then(result => {
             return res.status(200).json({
                 message: 'berhasil menambahkan data'
@@ -132,7 +118,6 @@ const resetPassword = (req, res) => {
 }
 
 module.exports = {
-    countAdmin,
     getAdmin,
     insertAdmin,
     updateAdmin,

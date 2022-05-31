@@ -3,32 +3,6 @@ const base = require('../../config/base')
 const queries = require('./queries')
 var fs = require('fs')
 
-const countAyat = (req, res) => {
-    pool.query(queries.countData)
-        .then(result => {
-            return res.status(200).json(result.rows[0].count)
-        })
-        .catch(e => {
-            console.error(e.stack)
-            return res.status(500).json({
-                message: 'gagal mendapat data'
-            })
-        })
-}
-
-const getAllAyat = (req, res) => {
-    pool.query(queries.getAllData, [req.params.mulai])
-        .then(result => {
-            return res.status(200).json(result.rows)
-        })
-        .catch(e => {
-            console.error(e.stack)
-            return res.status(500).json({
-                message: 'gagal mendapat data'
-            })
-        })
-}
-
 const getAyat = (req, res) => {
     pool.query(queries.getData, [req.params.id])
         .then(result => {
@@ -100,8 +74,6 @@ const deleteAyat = (req, res) => {
 }
 
 module.exports = {
-    countAyat,
-    getAllAyat,
     getAyat,
     insertAyat,
     updateAyat,

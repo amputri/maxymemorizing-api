@@ -3,32 +3,6 @@ const base = require('../../config/base')
 const queries = require('./queries')
 var fs = require('fs')
 
-const countSurah = (req, res) => {
-    pool.query(queries.countData)
-        .then(result => {
-            return res.status(200).json(result.rows[0].count)
-        })
-        .catch(e => {
-            console.error(e.stack)
-            return res.status(500).json({
-                message: 'gagal mendapat data'
-            })
-        })
-}
-
-const getAllSurah = (req, res) => {
-    pool.query(queries.getAllData, [req.params.mulai])
-        .then(result => {
-            return res.status(200).json(result.rows)
-        })
-        .catch(e => {
-            console.error(e.stack)
-            return res.status(500).json({
-                message: 'gagal mendapat data'
-            })
-        })
-}
-
 const getSurah = (req, res) => {
     pool.query(queries.getData, [req.params.id])
         .then(result => {
@@ -103,8 +77,6 @@ const deleteSurah = (req, res) => {
 }
 
 module.exports = {
-    countSurah,
-    getAllSurah,
     getSurah,
     insertSurah,
     updateSurah,
