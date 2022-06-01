@@ -25,12 +25,18 @@ const auth = require('./src/auth/controller')
 const adminRoutes = require('./src/admin/routes')
 const surahRoutes = require('./src/surah/routes')
 const ayatRoutes = require('./src/ayat/routes')
+const kategoriRoutes = require('./src/kategori/routes')
+const temaRoutes = require('./src/tema/routes')
+const materiRoutes = require('./src/materi/routes')
 
 app.post('/login', auth.loginAdmin)
 
 app.use('/admin', adminRoutes)
 app.use('/surah', surahRoutes)
 app.use('/ayat', ayatRoutes)
+app.use('/kategori', kategoriRoutes)
+app.use('/tema', temaRoutes)
+app.use('/materi', materiRoutes)
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)
