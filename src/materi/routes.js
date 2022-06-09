@@ -5,6 +5,7 @@ const router = Router()
 
 const authMiddleware = require('../auth/middleware')
 
+router.get('/ayat/:key', controller.getByAyat)
 router.get('/:tema', controller.getMateri)
 router.post('/', authMiddleware.verifyToken, controller.insertMateri)
 router.put('/', authMiddleware.verifyToken, controller.updateMateri)

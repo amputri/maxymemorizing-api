@@ -1,6 +1,19 @@
 const pool = require('../../config/db')
 const queries = require('./queries')
 
+const getByAyat = (req, res) => {
+    pool.query(queries.getByAyat, [`%QS ${req.params.key}%`])
+        .then(result => {
+            return res.status(200).json(result.rows)
+        })
+        .catch(e => {
+            console.error(e.stack)
+            return res.status(500).json({
+                message: 'gagal mendapat data'
+            })
+        })
+}
+
 const getMateri = (req, res) => {
     pool.query(queries.getData, [req.params.tema])
         .then(result => {
@@ -64,6 +77,7 @@ const deleteMateri = (req, res) => {
 }
 
 module.exports = {
+    getByAyat,
     getMateri,
     insertMateri,
     updateMateri,
