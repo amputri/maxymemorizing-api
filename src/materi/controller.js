@@ -2,7 +2,7 @@ const pool = require('../../config/db')
 const queries = require('./queries')
 
 const getByAyat = (req, res) => {
-    pool.query(queries.getByAyat, [`%QS ${req.params.key}%`])
+    pool.query(queries.getByAyat, [`%[QS ${req.params.key}]%`])
         .then(result => {
             return res.status(200).json(result.rows)
         })
