@@ -60,7 +60,7 @@ const updateTema = (req, res) => {
 const deleteTema = (req, res) => {
     const { gambar_lama, id } = req.params
 
-    fs.unlinkSync(`uploads/tema/${gambar_lama}`)
+    // fs.unlinkSync(`uploads/tema/${gambar_lama}`)
 
     pool.query(queries.deleteData, [id])
         .then(result => {
