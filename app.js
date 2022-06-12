@@ -2,7 +2,7 @@ const express = require('express')
 const cors = require('cors')
 
 const app = express()
-const port = 3333
+const port = process.env.PORT || 3333
 
 app.use(cors())
 
@@ -38,6 +38,6 @@ app.use('/kategori', kategoriRoutes)
 app.use('/tema', temaRoutes)
 app.use('/materi', materiRoutes)
 
-app.listen(process.env.PORT || port, () => {
-    console.log(`App listening on port ${process.env.PORT ? process.env.PORT : port}`)
+app.listen(port, () => {
+    console.log(`App listening on port ${port}`)
 })
