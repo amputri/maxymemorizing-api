@@ -38,6 +38,6 @@ app.use('/kategori', kategoriRoutes)
 app.use('/tema', temaRoutes)
 app.use('/materi', materiRoutes)
 
-app.listen(port, () => {
-    console.log(`App listening on port ${port}`)
+app.listen(process.env.PORT || port, () => {
+    console.log(`App listening on port ${process.env.PORT ? process.env.PORT : port}`)
 })
