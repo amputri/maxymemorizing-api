@@ -58,7 +58,7 @@ const updateTema = (req, res) => {
 }
 
 const deleteTema = (req, res) => {
-    const { gambar_lama, id } = req.params
+    const { id, gambar_lama } = req.params
 
     // fs.unlinkSync(`uploads/tema/${gambar_lama}`)
 
