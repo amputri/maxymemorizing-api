@@ -9,7 +9,7 @@ const getKategori = (req, res) => {
         .catch(e => {
             console.error(e.stack)
             return res.status(500).json({
-                message: 'gagal mendapat data'
+                message: e
             })
         })
 }
