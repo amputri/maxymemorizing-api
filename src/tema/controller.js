@@ -38,10 +38,10 @@ const insertTema = (req, res) => {
 const updateTema = (req, res) => {
     var { kategori, urutan, judul, gambar_tema, referensi, id_session } = req.body
 
-    // if (req.file) {
-    //     fs.unlinkSync(`uploads/tema/${gambar_tema.split('/tema/').pop()}`)
-    //     gambar_tema = `${base.url}/tema/${req.file.filename}`
-    // }
+    if (req.file) {
+        fs.unlinkSync(`uploads/tema/${gambar_tema.split('/tema/').pop()}`)
+        gambar_tema = `${base.url}/tema/${req.file.filename}`
+    }
 
     pool.query(queries.updateData, [kategori, urutan, judul, gambar_tema, referensi, req.params.id, id_session])
         .then(result => {
@@ -58,9 +58,9 @@ const updateTema = (req, res) => {
 }
 
 const deleteTema = (req, res) => {
-    const { id, gambar_lama } = req.params
+    const { gambar_lama, id } = req.params
 
-    // fs.unlinkSync(`uploads/tema/${gambar_lama}`)
+    fs.unlinkSync(`uploads/tema/${gambar_lama}`)
 
     pool.query(queries.deleteData, [id])
         .then(result => {

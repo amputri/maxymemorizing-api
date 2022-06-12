@@ -57,7 +57,7 @@ const updateAyat = (req, res) => {
 const deleteAyat = (req, res) => {
     const { gambar_lama, id } = req.params
 
-    // fs.unlinkSync(`uploads/ayat/${gambar_lama}`)
+    fs.unlinkSync(`uploads/ayat/${gambar_lama}`)
 
     pool.query(queries.deleteData, [id])
         .then(result => {
