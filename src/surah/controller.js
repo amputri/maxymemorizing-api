@@ -39,7 +39,7 @@ const updateSurah = (req, res) => {
     var { kata_kunci, gambar_surah, narasi, uraian, id_session } = req.body
 
     if (req.file) {
-        fs.unlinkSync(`uploads/surah/${gambar_surah.split('/surah/').pop()}`)
+        // fs.unlinkSync(`uploads/surah/${gambar_surah.split('/surah/').pop()}`)
         gambar_surah = `${base.url}/surah/${req.file.filename}`
     }
 
@@ -60,7 +60,7 @@ const updateSurah = (req, res) => {
 const deleteSurah = (req, res) => {
     const { gambar_lama, id } = req.params
 
-    fs.unlinkSync(`uploads/surah/${gambar_lama}`)
+    // fs.unlinkSync(`uploads/surah/${gambar_lama}`)
 
     pool.query(queries.deleteData, [id])
         .then(result => {

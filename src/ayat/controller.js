@@ -38,7 +38,7 @@ const updateAyat = (req, res) => {
     const { gambar_lama, id_session } = req.body
     const gambar = `${base.url}/ayat/${req.file.filename}`
 
-    fs.unlinkSync(`uploads/ayat/${gambar_lama.split('/ayat/').pop()}`)
+    // fs.unlinkSync(`uploads/ayat/${gambar_lama.split('/ayat/').pop()}`)
 
     pool.query(queries.updateData, [gambar, req.params.id, id_session])
         .then(result => {
@@ -57,7 +57,7 @@ const updateAyat = (req, res) => {
 const deleteAyat = (req, res) => {
     const { gambar_lama, id } = req.params
 
-    fs.unlinkSync(`uploads/ayat/${gambar_lama}`)
+    // fs.unlinkSync(`uploads/ayat/${gambar_lama}`)
 
     pool.query(queries.deleteData, [id])
         .then(result => {
