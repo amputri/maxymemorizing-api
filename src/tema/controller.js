@@ -1,7 +1,5 @@
 const pool = require('../../config/db')
-const base = require('../../config/base')
 const queries = require('./queries')
-var fs = require('fs')
 
 const getTema = (req, res) => {
     pool.query(queries.getData, [req.params.kategori])
@@ -17,11 +15,9 @@ const getTema = (req, res) => {
 }
 
 const insertTema = (req, res) => {
-    const { kategori, urutan, judul, referensi, id_session } = req.body
-    
-    const gambar_tema = `${base.url}/tema/${req.file.filename}`
+    const { kategori, urutan, judul, gambar, referensi, id_session } = req.body
 
-    pool.query(queries.insertData, [kategori, urutan, judul, gambar_tema, referensi, id_session])
+    pool.query(queries.insertData, [kategori, urutan, judul, gambar, referensi, id_session])
         .then(result => {
             return res.status(200).json({
                 message: 'berhasil menambahkan data'
@@ -36,14 +32,9 @@ const insertTema = (req, res) => {
 }
 
 const updateTema = (req, res) => {
-    var { kategori, urutan, judul, gambar_tema, referensi, id_session } = req.body
+    var { kategori, urutan, judul, gambar, referensi, id, id_session } = req.body
 
-    if (req.file) {
-        // fs.unlinkSync(`uploads/tema/${gambar_tema.split('/tema/').pop()}`)
-        gambar_tema = `${base.url}/tema/${req.file.filename}`
-    }
-
-    pool.query(queries.updateData, [kategori, urutan, judul, gambar_tema, referensi, req.params.id, id_session])
+    pool.query(queries.updateData, [kategori, urutan, judul, gambar, referensi, id, id_session])
         .then(result => {
             return res.status(200).json({
                 message: 'berhasil mengubah data'
@@ -58,11 +49,7 @@ const updateTema = (req, res) => {
 }
 
 const deleteTema = (req, res) => {
-    const { gambar_lama, id } = req.params
-
-    // fs.unlinkSync(`uploads/tema/${gambar_lama}`)
-
-    pool.query(queries.deleteData, [id])
+    pool.query(queries.deleteData, [req.params.id])
         .then(result => {
             return res.status(200).json({
                 message: 'berhasil menghapus data'

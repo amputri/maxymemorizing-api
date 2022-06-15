@@ -1,7 +1,5 @@
 const pool = require('../../config/db')
-const base = require('../../config/base')
 const queries = require('./queries')
-var fs = require('fs')
 
 const getAyat = (req, res) => {
     pool.query(queries.getData, [req.params.id])
@@ -17,8 +15,7 @@ const getAyat = (req, res) => {
 }
 
 const insertAyat = (req, res) => {
-    const { id, id_session } = req.body
-    const gambar = `${base.url}/ayat/${req.file.filename}`
+    const { id, gambar, id_session } = req.body
 
     pool.query(queries.insertData, [id, gambar, id_session])
         .then(result => {
@@ -35,12 +32,9 @@ const insertAyat = (req, res) => {
 }
 
 const updateAyat = (req, res) => {
-    const { gambar_lama, id_session } = req.body
-    const gambar = `${base.url}/ayat/${req.file.filename}`
+    const { gambar, id, id_session } = req.body
 
-    // fs.unlinkSync(`uploads/ayat/${gambar_lama.split('/ayat/').pop()}`)
-
-    pool.query(queries.updateData, [gambar, req.params.id, id_session])
+    pool.query(queries.updateData, [gambar, id, id_session])
         .then(result => {
             return res.status(200).json({
                 message: 'berhasil mengubah data'
@@ -55,11 +49,7 @@ const updateAyat = (req, res) => {
 }
 
 const deleteAyat = (req, res) => {
-    const { gambar_lama, id } = req.params
-
-    // fs.unlinkSync(`uploads/ayat/${gambar_lama}`)
-
-    pool.query(queries.deleteData, [id])
+    pool.query(queries.deleteData, [req.params.id])
         .then(result => {
             return res.status(200).json({
                 message: 'berhasil menghapus data'
